@@ -1,4 +1,4 @@
-import pokemons from '../pokemons/pokemons.json';
+import pokemons from "../pokemons/pokemons.json";
 
 export async function getPokemons(args) {
   const searchedPokemons = pokemons.slice(0, args.first);
@@ -9,9 +9,9 @@ export async function getPokemons(args) {
 }
 
 export async function getPokemonById(pokemonId) {
-  const pokemon = pokemons.filter(({ id }) =>
-    parseInt(id, 10) === parseInt(pokemonId, 10)
-  );
+  const pokemon = pokemons.filter(({ id }) => {
+    return parseInt(id, 10) === parseInt(pokemonId, 10);
+  });
 
   return pokemon[0] || null;
 }
@@ -19,8 +19,8 @@ export async function getPokemonById(pokemonId) {
 export async function getPokemonByName(pokemonNameSearch) {
   const pokemonName = pokemonNameSearch.toLowerCase().trim();
 
-  const pokemon = pokemons.filter(({ name }) =>
-    name.toLowerCase() === pokemonName
+  const pokemon = pokemons.filter(
+    ({ name }) => name.toLowerCase() === pokemonName
   );
 
   if (pokemon) {
@@ -35,12 +35,12 @@ export async function getPokemonByEvolutions(evolutions) {
     return null;
   }
 
-  const pokemonNames = evolutions.map(evolution =>
+  const pokemonNames = evolutions.map((evolution) =>
     evolution.name.toLowerCase().trim()
   );
 
-  const searchedPokemons = pokemons.filter(({ name }) =>
-    pokemonNames.indexOf(name.toLowerCase()) !== -1
+  const searchedPokemons = pokemons.filter(
+    ({ name }) => pokemonNames.indexOf(name.toLowerCase()) !== -1
   );
 
   return searchedPokemons || null;

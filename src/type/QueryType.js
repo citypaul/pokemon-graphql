@@ -4,23 +4,19 @@ import {
   GraphQLString,
   GraphQLList,
   GraphQLNonNull,
-} from 'graphql';
-import {
-  fromGlobalId,
-} from 'graphql-relay';
+} from "graphql";
 
-import PokemonType from './PokemonType';
+import PokemonType from "./PokemonType";
 
 import {
   getPokemons,
   getPokemonById,
   getPokemonByName,
-} from '../service/Pokemon';
-
+} from "../service/Pokemon";
 
 const QueryType = new GraphQLObjectType({
-  name: 'Query',
-  description: 'Query any Pokémon by number or name',
+  name: "Query",
+  description: "Query any Pokémon by number or name",
   fields: () => ({
     query: {
       type: QueryType,
@@ -47,7 +43,7 @@ const QueryType = new GraphQLObjectType({
       },
       resolve: async (obj, { id, name }) => {
         if (id) {
-          return await getPokemonById(fromGlobalId(id).id);
+          return await getPokemonById(id);
         }
 
         if (name) {
@@ -55,7 +51,7 @@ const QueryType = new GraphQLObjectType({
         }
 
         throw new Error(
-          'You need to specify either the ID or name of the Pokémon'
+          "You need to specify either the ID or name of the Pokémon"
         );
       },
     },
